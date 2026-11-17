@@ -4,7 +4,7 @@ import { parseProductCsv } from "../src/catalog/catalogCsv";
 describe("parseProductCsv", () => {
   it("imports semicolon-separated Swedish decimals and pant", () => {
     const result = parseProductCsv(
-      "id;name;category;packageType;volumeMl;alcoholPercent;priceSek;depositSek\n" +
+      "\uFEFFid;name;category;packageType;volumeMl;alcoholPercent;priceSek;depositSek\n" +
       "123;Testöl;öl;50 cl;500;5,2;19,90;1,00"
     );
     expect(result.products).toHaveLength(1);
@@ -23,6 +23,14 @@ describe("parseProductCsv", () => {
     expect(() => parseProductCsv(
       "id;name;category;volumeMl;alcoholPercent;priceSek\n123;Testöl;beer;500;5;19"
     )).toThrow(/depositSek/);
+  });
+
+  it("handles quoted semicolons in descriptions", () => {
+    const result = parseProductCsv(
+      "id;name;category;volumeMl;alcoholPercent;priceSek;depositSek;description\\n" +
+      "123;Testöl;beer;500;5;19;1;\\"Malt; citrus\\""
+    );
+    expect(result.products[0].description).toBe("Malt; citrus");
   });
 
   it("rejects duplicate article identifiers", () => {
