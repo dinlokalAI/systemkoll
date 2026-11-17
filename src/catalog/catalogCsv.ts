@@ -6,7 +6,8 @@ export interface CsvImportResult {
 }
 
 function parseRows(input: string): string[][] {
-  const firstLine = input.replace(/^\uFEFF/, "").split(/\r?\n/, 1)[0] ?? "";
+  input = input.replace(/^\uFEFF/, "");
+  const firstLine = input.split(/\r?\n/, 1)[0] ?? "";
   const delimiter = (firstLine.match(/;/g)?.length ?? 0) >= (firstLine.match(/,/g)?.length ?? 0) ? ";" : ",";
   const rows: string[][] = [];
   let row: string[] = [];
