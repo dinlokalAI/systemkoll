@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { parseProductCsv } from "../src/catalog/catalogCsv";
 
 describe("parseProductCsv", () => {
-  it("imports semicolon-separated Swedish decimals and pant", () => {
+  it("imports semicolon-separated Swedish decimals and pant, including UTF-8 BOM", () => {
     const result = parseProductCsv(
       "\uFEFFid;name;category;packageType;volumeMl;alcoholPercent;priceSek;depositSek\n" +
       "123;Testöl;öl;50 cl;500;5,2;19,90;1,00"
@@ -27,8 +27,8 @@ describe("parseProductCsv", () => {
 
   it("handles quoted semicolons in descriptions", () => {
     const result = parseProductCsv(
-      "id;name;category;volumeMl;alcoholPercent;priceSek;depositSek;description\\n" +
-      "123;Testöl;beer;500;5;19;1;\\"Malt; citrus\\""
+      "id;name;category;volumeMl;alcoholPercent;priceSek;depositSek;description\n" +
+      "123;Testöl;beer;500;5;19;1;\"Malt; citrus\""
     );
     expect(result.products[0].description).toBe("Malt; citrus");
   });
