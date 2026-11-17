@@ -113,3 +113,14 @@ h2 { font-size: 17px; letter-spacing: -.45px; margin: 0; }
   .intro-stamp { display: none; }
   .results-header { flex-direction: column; align-items: flex-start; }
 }
+
+.catalog-import { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px; margin: 0 0 12px; border: 1px solid #e4e2d9; border-radius: 9px; background: #fff; }
+.catalog-source { display: flex; align-items: center; gap: 9px; flex: 1 1 190px; min-width: 0; color: var(--green); }
+.catalog-source > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.catalog-source strong { color: var(--ink); font-size: 11px; overflow-wrap: anywhere; }
+.catalog-source span { color: #85897f; font-size: 9px; line-height: 1.4; }
+.import-button { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid #9aac9c; border-radius: 7px; background: var(--green-soft); color: var(--green); font-size: 10px; font-weight: 700; cursor: pointer; }
+.import-button input { display: none; }
+.demo-switch, .template-link { display: inline-flex; align-items: center; gap: 5px; border: 0; background: transparent; color: #687166; font-size: 10px; text-decoration: none; cursor: pointer; padding: 4px 0; }
+.demo-switch:hover, .template-link:hover { color: var(--green); text-decoration: underline; }
+.catalog-error { margin: 0 0 12px; padding: 10px 12px; border: 1px solid #e8b9a8; border-radius: 8px; background: #fff1eb; color: #9b4326; font-size: 11px; line-height: 1.5; }
