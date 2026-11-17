@@ -59,6 +59,8 @@ Importmallen finns i `public/systemkoll-importmall.csv`.
 6. Produktbilder får bara användas när rättigheterna är klarerade.
 7. En källa som slutar svara ska ge ett tydligt fel eller senast uppdaterade cache med åldersvarning, inte falskt färska uppgifter.
 
+Utkast till skriftlig förfrågan finns i [SYSTEMBOLAGET_DATA_ACCESS_REQUEST.md](./SYSTEMBOLAGET_DATA_ACCESS_REQUEST.md).
+
 ## Nästa steg för officiell integration
 
 Begär skriftligt besked från Systembolaget om:
