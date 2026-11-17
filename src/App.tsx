@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ChangeEvent } from "react";
 import { ArrowDownRight, Beer, Calculator, Check, CircleHelp, FileSpreadsheet, RotateCcw, ShoppingBasket, Upload, Wine } from "lucide-react";
 import { demoProducts } from "./catalog/demoProducts";
 import { parseProductCsv } from "./catalog/catalogCsv";
@@ -84,7 +84,7 @@ export default function App() {
     [catalogProducts, budgetCents, categories, packageTypes, minAlcohol]
   );
 
-  const importCsv = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const importCsv = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
     try {
