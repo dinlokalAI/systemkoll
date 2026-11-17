@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
 
 :root {
-  font-family: 'DM Sans', sans-serif;
+  font-family: system-ui, sans-serif;
   color: #20251f;
   background: #f4f1e9;
   font-synthesis: none;
@@ -24,20 +24,20 @@ button { cursor: pointer; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 21px; font-weight: 700; letter-spacing: -1px; }
 .brand > span:last-child > span { color: var(--green); }
 .brand-mark { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 11px; color: white; background: var(--green); }
-.top-note, .eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: var(--muted); }
+.top-note, .eyebrow { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; letter-spacing: 1.2px; color: var(--muted); }
 .top-note { font-size: 9px; }
 .intro { display: flex; align-items: center; justify-content: space-between; padding: 48px 0 42px; }
 .intro .eyebrow { color: var(--orange); margin: 0 0 14px; }
 h1 { font-size: clamp(42px, 6vw, 66px); line-height: .99; letter-spacing: -3.8px; margin: 0; font-weight: 700; }
-h1 em { color: var(--green); font-family: 'Playfair Display', serif; font-weight: 600; }
+h1 em { color: var(--green); font-family: Georgia, serif; font-weight: 600; }
 .intro-text { color: #656a60; font-size: 15px; line-height: 1.65; max-width: 470px; margin: 19px 0 0; }
-.intro-stamp { width: 104px; height: 104px; border: 1px solid #c6cabe; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--green); font-family: 'DM Mono', monospace; font-size: 10px; text-align: center; transform: rotate(8deg); }
+.intro-stamp { width: 104px; height: 104px; border: 1px solid #c6cabe; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--green); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; text-align: center; transform: rotate(8deg); }
 .workspace { display: grid; grid-template-columns: 340px minmax(0, 1fr); align-items: start; gap: 22px; padding-bottom: 52px; }
 .controls-panel, .results-panel { background: var(--paper); border: 1px solid var(--line); border-radius: 15px; }
 .controls-panel { padding: 25px 24px 21px; }
 .results-panel { padding: 26px; min-width: 0; }
 .section-title { display: flex; align-items: center; gap: 12px; }
-.step-number { display: grid; place-items: center; flex: 0 0 29px; height: 29px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-family: 'DM Mono', monospace; font-size: 12px; }
+.step-number { display: grid; place-items: center; flex: 0 0 29px; height: 29px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12px; }
 .section-title .eyebrow, .results-header .eyebrow { margin: 0 0 4px; font-size: 9px; }
 h2 { font-size: 17px; letter-spacing: -.45px; margin: 0; }
 .budget-field { display: flex; align-items: center; margin: 19px 0 5px; padding: 0 15px; height: 66px; border: 1px solid #c8d1c6; border-radius: 10px; background: #fff; }
@@ -59,7 +59,7 @@ h2 { font-size: 17px; letter-spacing: -.45px; margin: 0; }
 .results-header { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 17px; }
 .results-header .eyebrow { color: var(--orange); }
 .results-header h2 { font-size: 22px; }
-.budget-pill { white-space: nowrap; border-radius: 20px; padding: 8px 11px; background: #f0eee7; color: #62685d; font-family: 'DM Mono', monospace; font-size: 10px; }
+.budget-pill { white-space: nowrap; border-radius: 20px; padding: 8px 11px; background: #f0eee7; color: #62685d; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; }
 .demo-warning { display: flex; align-items: flex-start; gap: 9px; padding: 11px 12px; background: #fbf1e6; border: 1px solid #f0dfca; border-radius: 8px; color: #835a3b; font-size: 11px; line-height: 1.5; }
 .demo-warning svg { flex: 0 0 auto; margin-top: 1px; }
 .results-list { display: grid; gap: 12px; margin-top: 14px; }
@@ -71,7 +71,7 @@ h2 { font-size: 17px; letter-spacing: -.45px; margin: 0; }
 .result-price { color: var(--green); font-size: 20px; font-weight: 700; letter-spacing: -.7px; white-space: nowrap; }
 .basket-lines { border-top: 1px solid #eeede7; margin-top: 13px; padding-top: 9px; }
 .basket-line { display: grid; grid-template-columns: 29px minmax(0, 1fr) auto; gap: 6px; padding: 4px 0; align-items: baseline; font-size: 11px; }
-.line-quantity { color: var(--green); font-family: 'DM Mono', monospace; }
+.line-quantity { color: var(--green); font-family: ui-monospace, SFMono-Regular, monospace; }
 .line-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #555b51; }
 .line-price { color: #555b51; font-variant-numeric: tabular-nums; }
 .result-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; padding-top: 11px; border-top: 1px solid #eeede7; }
@@ -85,7 +85,7 @@ h2 { font-size: 17px; letter-spacing: -.45px; margin: 0; }
 .next-step-note svg { color: var(--orange); flex: 0 0 auto; }
 .next-step-note p { font-size: 11px; line-height: 1.5; margin: 0; }
 .next-step-note strong { color: var(--ink); }
-.footer { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding: 18px 0 25px; color: #8a8d83; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .4px; }
+.footer { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding: 18px 0 25px; color: #8a8d83; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 9px; letter-spacing: .4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width: 850px) {
   .app-shell { padding: 0 22px; }
