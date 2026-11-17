@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { ArrowDownRight, Beer, Calculator, Check, CircleHelp, RotateCcw, ShoppingBasket, Wine } from "lucide-react";
+import { ArrowDownRight, Beer, Calculator, Check, CircleHelp, FileSpreadsheet, RotateCcw, ShoppingBasket, Upload, Wine } from "lucide-react";
 import { demoProducts } from "./catalog/demoProducts";
+import { parseProductCsv } from "./catalog/catalogCsv";
 import { calculateBaskets } from "./basket/optimizer";
-import type { Basket, Category, PackageType, Preferences } from "./domain/types";
+import type { Basket, Category, PackageType, Preferences, Product } from "./domain/types";
 
 const categoryOptions: { id: Category; label: string }[] = [
   { id: "beer", label: "Öl" },
@@ -66,6 +67,10 @@ export default function App() {
   const [categories, setCategories] = useState<Category[]>(["beer", "cider"]);
   const [packageTypes, setPackageTypes] = useState<PackageType[]>(["can33", "can50"]);
   const [minAlcohol, setMinAlcohol] = useState("0");
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>(demoProducts);
+  const [catalogSource, setCatalogSource] = useState("Syntetisk testdata");
+  const [catalogUpdatedAt, setCatalogUpdatedAt] = useState<string | null>(null);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
   const preferences: Preferences = {
     categories,
@@ -75,9 +80,32 @@ export default function App() {
 
   const budgetCents = Math.max(0, Math.round((Number(budget) || 0) * 100));
   const results = useMemo(
-    () => calculateBaskets(demoProducts, budgetCents, preferences),
-    [budgetCents, categories, packageTypes, minAlcohol]
+    () => calculateBaskets(catalogProducts, budgetCents, preferences),
+    [catalogProducts, budgetCents, categories, packageTypes, minAlcohol]
   );
+
+  const importCsv = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      const parsed = parseProductCsv(await file.text());
+      setCatalogProducts(parsed.products);
+      setCatalogSource(`Importerad fil: ${file.name}`);
+      setCatalogUpdatedAt(new Date().toLocaleString("sv-SE"));
+      setCatalogError(null);
+    } catch (error) {
+      setCatalogError(error instanceof Error ? error.message : "Kunde inte läsa CSV-filen.");
+    } finally {
+      event.target.value = "";
+    }
+  };
+
+  const useDemoData = () => {
+    setCatalogProducts(demoProducts);
+    setCatalogSource("Syntetisk testdata");
+    setCatalogUpdatedAt(null);
+    setCatalogError(null);
+  };
 
   const toggleCategory = (category: Category) => {
     setCategories((current) =>
@@ -164,13 +192,26 @@ export default function App() {
             <div><p className="eyebrow">DINA INKÖPSFÖRSLAG</p><h2>Det här ryms i budgeten</h2></div>
             <span className="budget-pill">{money(budgetCents)} att handla för</span>
           </div>
-          <div className="demo-warning"><CircleHelp size={17} /><span><strong>Första prototypen:</strong> priserna och produkterna är påhittad testdata, inte Systembolagets aktuella sortiment.</span></div>
+          <div className="catalog-import">
+            <div className="catalog-source">
+              <FileSpreadsheet size={17} />
+              <div><strong>{catalogSource}</strong><span>{catalogUpdatedAt ? `Importerad ${catalogUpdatedAt} · endast lokalt i denna flik` : "Ingen verifierad livekälla ansluten"}</span></div>
+            </div>
+            <label className="import-button">
+              <Upload size={15} /> Importera CSV
+              <input type="file" accept=".csv,text/csv" onChange={importCsv} />
+            </label>
+            {catalogUpdatedAt && <button className="demo-switch" type="button" onClick={useDemoData}>Återgå till testdata</button>}
+            <a className="template-link" href="/systemkoll-importmall.csv" download><FileSpreadsheet size={13} /> Importmall</a>
+          </div>
+          {catalogError && <div className="catalog-error" role="alert">{catalogError}</div>}
+          <div className="demo-warning"><CircleHelp size={17} /><span><strong>Datakälla:</strong> {catalogUpdatedAt ? "Uppgifterna kommer från din importerade fil. Vi har inte verifierat filens ursprung eller aktualitet." : "Priser och produkter är påhittad testdata. Inte Systembolagets aktuella sortiment."} Kontrollera alltid pris och lager med butiken innan du åker.</span></div>
           <div className="results-list">
             <BasketResult title="Flest förpackningar" hint="Räknar antal – pant ingår." basket={results.mostPackages} />
             <BasketResult title="Mest dryck i volym" hint="Jämför total mängd dryck." basket={results.mostVolume} />
             <BasketResult title="Billigaste möjliga köp" hint="Lägsta totalsumma för minst en produkt." basket={results.lowestCheckout} />
           </div>
-          <div className="next-step-note"><ArrowDownRight size={18} /><p><strong>Nästa steg:</strong> koppla in en tillförlitlig produktkälla så att testprodukterna ersätts av riktiga artiklar, priser och bilder.</p></div>
+          <div className="next-step-note"><ArrowDownRight size={18} /><p><strong>Datakvalitet först:</strong> automatisk Systembolaget-koppling kräver klarerat tillstånd. Importerade uppgifter märks som importerade och blir inte live-data av sig själva.</p></div>
         </section>
       </section>
 
