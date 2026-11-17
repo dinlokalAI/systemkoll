@@ -42,6 +42,12 @@ npm run build
 - `src/App.tsx` – användargränssnitt
 - `tests/` – tester av beräkningsmotorn
 
+## Importera egna produktuppgifter
+
+Du kan importera en CSV-fil via gränssnittet. Använd [importmallen](./public/systemkoll-importmall.csv) och fyll i produktens artikelnummer, namn, kategori, volym, alkoholhalt, pris och pant. Pant måste anges uttryckligen, även om den är 0 kr.
+
+Importen sker i webbläsaren och sparas inte på någon server. Appen verifierar filformat och rimliga värden, men kan inte kontrollera om källan eller uppgifterna är korrekta eller aktuella. Importerade uppgifter ska därför kontrolleras mot en tillförlitlig källa.
+
 ## Datakällor och nästa tekniska grind
 
 Ingen livekoppling till Systembolaget är aktiverad. Innan en sådan byggs ska källa, villkor, uppdateringsfrekvens, bildrättigheter, prisernas aktualitet och eventuell butiksspecifik lagerstatus granskas. Appen ska visa när katalogen senast uppdaterades och aldrig presentera exempeldata som riktiga priser.
